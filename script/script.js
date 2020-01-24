@@ -1,16 +1,12 @@
-let money = 24000,
-  income = 'фриланс',
-  addExpenses = 'Интернет, Проезд, Тренажерка',
-  deposit = true,
-  mission = 100000,
-  period = 11,
-  budgetDay = money / 30;
+let num = 266219,
+  accum = 1;
 
-console.log('money: ', typeof money);
-console.log('income: ', typeof income);
-console.log('deposit: ', typeof deposit);
-console.log('длина addExpenses:', addExpenses.length);
-console.log(`Период равен ${period} месяцев`);
-console.log(`Цель заработать ${mission} рублей`);
-console.log('addExpenses как массив: ', addExpenses.toLowerCase().split(', '));
-console.log('budgetDay: ', budgetDay);
+for (let i = 0; i < String(num).length; i++) {
+  accum *= String(num)[i];
+}
+
+console.log('Произведение цифр числа 266219:', accum);
+
+let accumPow = accum ** 3;
+
+console.log('Первые две цифры возведенного в куб произведения:', +String(accumPow).slice(0,2));
