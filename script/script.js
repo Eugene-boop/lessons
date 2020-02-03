@@ -27,16 +27,34 @@
     budgetMonth: 0,
     expensesMonth: 0,
     asking: function() {
+      if (confirm('Есть ли у вас дополнительный заработок?')) {
+        let itemIncome, cashIncome;
+
+        do {
+          itemIncome = prompt('Какой у вас дополнительный заработок?', '');
+        } while (isNumber(itemIncome));
+        do {
+          cashIncome = prompt('Сколько приносит дополнительный заработок в месяц?', '');
+        } while (!isNumber(cashIncome));
+
+        this.income[itemIncome] = cashIncome;
+      
+      }
+      
       this.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', '').toLowerCase().split(', ');
-      this.deposit = !!confirm('Есть ли у вас депозит в банке');
+      this.deposit = confirm('Есть ли у вас депозит в банке');
       
       for (let i = 0; i < 2; i++) {
-        let question =  prompt('Введите обязательную статью расходов?', ''),
-        answer;
+        let itemExpenses, cashExpenses;
+
         do {
-        answer = prompt('Во сколько это обойдется?', '');
-        this.expenses[question] = +answer;
-        } while (!isNumber(answer));
+          itemExpenses =  prompt('Введите обязательную статью расходов?', '');
+        } while (isNumber(itemExpenses));
+        do {
+          cashExpenses = prompt('Во сколько это обойдется?', '');
+        } while (!isNumber(cashExpenses));
+        
+        this.expenses[itemExpenses] = +cashExpenses;
       }
     },
     getExpensesMonth: function() {
@@ -66,8 +84,25 @@
       
       return Math.floor(this.mission / this.budgetMonth);
     },
+    getInfoDeposit: function() {
+      if (this.deposit) {
+        let percentDeposit, moneyDeposit;
 
+        do {
+          percentDeposit = prompt('Какой годовой процент?', '5');
+        } while (!isNumber(percentDeposit));
+        do {
+          moneyDeposit = prompt('Какая сумма заложена', '60000');
+        } while (!isNumber(moneyDeposit));
 
+        this.percentDeposit = percentDeposit;
+        this.moneyDeposit = moneyDeposit;
+
+      }
+    },
+    calcSavedMoney: function() {
+      return this.budgetMonth * this.period;
+    }
   };
 
   appData.asking();
@@ -82,5 +117,10 @@
   for (let key in appData) {
     console.log(key, appData[key]);
   }
+
+  appData.getInfoDeposit();
+  console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMoney());  
+  
+  console.log(appData.addExpenses.map((item) => item[0].toUpperCase() + item.slice(1)).join(', '));
 
 })();
