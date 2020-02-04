@@ -16,4 +16,5 @@ let countBtn = document.getElementById('start'),
     expTitle = document.querySelector('.expenses-title'),
     expAmount = document.querySelector('.expenses-amount'),
     addExpTitile = document.querySelector('.additional_expenses-title'),
-    targAmount = document.querySelector('.target-amount');
+    targAmount = document.querySelector('.target-amount'),z
+    perSelect = document.querySelector('.period-select');
