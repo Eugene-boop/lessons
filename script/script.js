@@ -32,7 +32,7 @@
 
         do {
           itemIncome = prompt('Какой у вас дополнительный заработок?', '');
-        } while (isNumber(itemIncome));
+        } while (isNumber(itemIncome) || !itemIncome);
         do {
           cashIncome = prompt('Сколько приносит дополнительный заработок в месяц?', '');
         } while (!isNumber(cashIncome));
@@ -49,7 +49,7 @@
 
         do {
           itemExpenses =  prompt('Введите обязательную статью расходов?', '');
-        } while (isNumber(itemExpenses));
+        } while (isNumber(itemExpenses) || !itemExpenses);
         do {
           cashExpenses = prompt('Во сколько это обойдется?', '');
         } while (!isNumber(cashExpenses));
@@ -121,6 +121,6 @@
   appData.getInfoDeposit();
   console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMoney());  
   
-  console.log(appData.addExpenses.map((item) => item[0].toUpperCase() + item.slice(1)).join(', '));
+  console.log(appData.addExpenses.map((item) => item[0].toUpperCase() + item.slice(1).toLowerCase()).join(', '));
 
 })();
