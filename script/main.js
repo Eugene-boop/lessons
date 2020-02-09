@@ -18,5 +18,5 @@ const btn = document.querySelector('.button'),
       btn.setAttribute('style', `color: ${color};`);
     };
 
-
+document.addEventListener('DOMContentLoaded', changeColor);
 btn.addEventListener('click', changeColor);
