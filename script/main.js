@@ -2,6 +2,7 @@
   "use strict";
   
   let start = document.getElementById('start'),
+    cancel = document.getElementById('cancel'),
     incomePlus = document.getElementsByTagName('button')[0],
     expensesPlus = document.getElementsByTagName('button')[1],
     depositCheck = document.querySelector('#deposit-check'),
@@ -54,25 +55,26 @@
       this.getAddIncome();
       this.getBudget();
       this.showResult();
-      console.log('start');
-      start.textContent = 'Сбросить';
-      start.removeEventListener('click', appData.start.bind(appData));
-      start.addEventListener('click', appData.reset.bind(appData));
-      inputs.forEach((item) => {
-        item.setAttribute('disabled', '');
-      });
 
+      start.setAttribute('style', 'display:none;');
+      cancel.setAttribute('style', 'display:block;');
+      inputs.forEach((item, i) => {
+        if (i < 11) {
+          item.setAttribute('disabled', '');
+          item.setAttribute('style', 'background-color: #f3f3f3;');
+        }
+      });
     },
     reset: function() {
-      start.textContent = 'Сбросить';
-      inputs.forEach((item) => {
-        item.removeAttribute('disabled', '');
+      inputs.forEach((item, i) => {
         item.value = '';
+        if (i < 11) {
+          item.removeAttribute('disabled', '');
+          item.removeAttribute('style', 'background-color: #f3f3f3;');
+        }
       }); 
-      console.log('reset');
-
-      start.removeEventListener('click', appData.reset.bind(appData));
-      start.addEventListener('click', appData.start.bind(appData));
+      cancel.setAttribute('style', 'display:none;');
+      start.setAttribute('style', 'display:block;');
     },
     addExpensesBlock: function() {
       const cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -145,8 +147,7 @@
       periodAmount.textContent = periodSelect.value;
     },
     asking: function() {
-
-      
+  
       this.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', '').toLowerCase().split(', ');
       this.deposit = confirm('Есть ли у вас депозит в банке');
       
@@ -214,6 +215,8 @@
   
   // console.log(appData.addExpenses.map((item) => item[0].toUpperCase() + item.slice(1).toLowerCase()).join(', '));
   start.addEventListener('click', appData.start.bind(appData));
+
+  cancel.addEventListener('click', appData.reset.bind(appData));
 
   expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
 
