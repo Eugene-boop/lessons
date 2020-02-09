@@ -14,8 +14,8 @@ const btn = document.querySelector('.button'),
     changeColor = () => {
       color = newColor();
       colorTitle.textContent = color;
-      body.setAttribute('style', `background-color: ${color};`);
-      btn.setAttribute('style', `color: ${color};`);
+      body.setAttribute('style', `transition: 0.2s; background-color: ${color};`);
+      btn.setAttribute('style', `transition: 0.2s; color: ${color};`);
     };
 
 document.addEventListener('DOMContentLoaded', changeColor);
