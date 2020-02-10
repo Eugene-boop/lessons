@@ -64,6 +64,8 @@
           item.setAttribute('disabled', '');
           item.setAttribute('style', 'background-color: #f3f3f3;');
       });
+      incomePlus.setAttribute('disabled', '');
+      expensesPlus.setAttribute('disabled', '');
     },
     reset: function() {
       this.income = {};
@@ -99,6 +101,8 @@
       for (let i = 1; i < incomeItems.length; i++ ) {
         incomeItems[0].parentNode.removeChild(incomeItems[i]);
       }
+      incomePlus.removeAttribute('disabled', '');
+      expensesPlus.removeAttribute('disabled', '');
     },
     addExpensesBlock: function() {
       const cloneExpensesItem = expensesItems[0].cloneNode(true);
