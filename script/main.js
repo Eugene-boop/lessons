@@ -27,19 +27,19 @@
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     incomeItems = document.querySelectorAll('.income-items'),
     periodAmount = document.querySelector('.period-amount'),
-    inputs = document.querySelectorAll('input[type=text]');
+    inputsAll = document.querySelectorAll('input[type=text]'),
+    inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]');
 
   const isNumber = n => {
     return !isNaN(parseFloat(n)) && isFinite(n);
   };
-  let i = 0, j = 0;
+
   let appData = {
     income: {},
     addIncome: [],
     expenses: {},
     addExpenses: [],
     deposit: false,
-    mission: 50000,
     budget: 0,
     budgetDay: 0,
     budgetMonth: 0,
@@ -58,21 +58,35 @@
 
       start.setAttribute('style', 'display:none;');
       cancel.setAttribute('style', 'display:block;');
-      inputs.forEach((item, i) => {
-        if (i < 11) {
+      inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]');
+      inputsAll = document.querySelectorAll('input[type=text]');
+      inputsL.forEach((item) => {
           item.setAttribute('disabled', '');
           item.setAttribute('style', 'background-color: #f3f3f3;');
-        }
       });
     },
     reset: function() {
-      inputs.forEach((item, i) => {
-        item.value = '';
-        if (i < 11) {
+      this.income = {};
+      this.addIncome = [];
+      this.expenses = {};
+      this.addExpenses = [];
+      this.deposit = false;
+      this.budget = 0;
+      this.budgetDay = 0;
+      this.budgetMonth = 0;
+      this.expensesMonth = 0;
+      this.incomeMonth = 0;
+
+      inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]');
+      inputsL.forEach((item) => {
           item.removeAttribute('disabled', '');
           item.removeAttribute('style', 'background-color: #f3f3f3;');
-        }
-      }); 
+      });
+      inputsAll = document.querySelectorAll('input[type=text]');
+      inputsAll.forEach((item) => {
+        item.value = '';
+      });
+
       cancel.setAttribute('style', 'display:none;');
       start.setAttribute('style', 'display:block;');
     },
