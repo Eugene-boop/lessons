@@ -89,6 +89,16 @@
 
       cancel.setAttribute('style', 'display:none;');
       start.setAttribute('style', 'display:block;');
+
+      incomePlus.style.display = 'block';
+      expensesPlus.style.display = 'block';
+
+      for (let i = 1; i < expensesItems.length; i++ ) {
+        expensesItems[0].parentNode.removeChild(expensesItems[i]);
+      }
+      for (let i = 1; i < incomeItems.length; i++ ) {
+        incomeItems[0].parentNode.removeChild(incomeItems[i]);
+      }
     },
     addExpensesBlock: function() {
       const cloneExpensesItem = expensesItems[0].cloneNode(true);
