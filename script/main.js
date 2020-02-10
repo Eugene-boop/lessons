@@ -1,4 +1,4 @@
-(()=> {
+document.addEventListener('DOMContentLoaded', ()=> {
   "use strict";
   
   let start = document.getElementById('start'),
@@ -28,7 +28,9 @@
     incomeItems = document.querySelectorAll('.income-items'),
     periodAmount = document.querySelector('.period-amount'),
     inputsAll = document.querySelectorAll('input[type=text]'),
-    inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]');
+    inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]'),
+    expensesItemsArr = [],
+    incomeItemsArr = [];
 
   const isNumber = n => {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -95,11 +97,14 @@
       incomePlus.style.display = 'block';
       expensesPlus.style.display = 'block';
 
-      for (let i = 1; i < expensesItems.length; i++ ) {
-        expensesItems[0].parentNode.removeChild(expensesItems[i]);
+
+      for (let i = 1; i < expensesItemsArr.length; i++ ) {
+        expensesItemsArr[0].parentNode.removeChild(expensesItemsArr[i]);
+        if (i === expensesItemsArr.length - 1) expensesItemsArr.splice(0, i);
       }
-      for (let i = 1; i < incomeItems.length; i++ ) {
-        incomeItems[0].parentNode.removeChild(incomeItems[i]);
+      for (let i = 1; i < incomeItemsArr.length; i++ ) {
+        incomeItemsArr[0].parentNode.removeChild(incomeItemsArr[i]);
+        if (i === incomeItemsArr.length - 1) incomeItemsArr.splice(0, i);
       }
       incomePlus.removeAttribute('disabled', '');
       expensesPlus.removeAttribute('disabled', '');
@@ -111,6 +116,7 @@
       expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
       expensesItems = document.querySelectorAll('.expenses-items');
       if (expensesItems.length === 3) expensesPlus.style.display = 'none';
+      expensesItemsArr = Array.prototype.slice.call(expensesItems);
     },
     addIncomeBlock: function() {
       const cloneIncomeItem = incomeItems[0].cloneNode(true);
@@ -119,6 +125,7 @@
       incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
       incomeItems = document.querySelectorAll('.income-items');
       if (incomeItems.length === 3) incomePlus.style.display = 'none';
+      incomeItemsArr = Array.prototype.slice.call(incomeItems);
     },
     getExpenses: function() {
       expensesItems.forEach((item) => {
@@ -260,4 +267,4 @@
     }
   });
 
-})();
+});
