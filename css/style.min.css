@@ -1,4 +1,12 @@
 .timer {
-  margin: auto;
+  margin-top: 20%;
   font-size: 30px;
+}
+
+.timerB {
+  margin: 20px auto;
+  font-size: 30px;
+}
+.wrapper {
+  text-align: center;
 }
