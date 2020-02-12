@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]'),
     expensesItemsArr = [],
     incomeItemsArr = [];
+    
+  start.disabled = true;
 
   const isNumber = n => {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -49,7 +51,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     incomeMonth: 0,
     start: function () {
       this.budget = salaryAmount.value;
-
+      start.disabled = true;
+      
       this.getExpenses();
       this.getExpensesMonth();
       this.getIncome();
@@ -260,11 +263,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   periodSelect.addEventListener('input', appData.setPeriod.bind(appData));
 
   salaryAmount.addEventListener('input', () => {
-    if (!salaryAmount.value.trim() || !isNumber(salaryAmount.value.trim())) {
-      start.setAttribute('disabled', '');
-    } else if(isNumber(salaryAmount.value.trim())) {
-      start.removeAttribute('disabled', '');
-    }
+    start.disabled = !salaryAmount.value.trim() || !isNumber(salaryAmount.value.trim());
   });
 
 });
