@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
     expensesItemsArr = [],
     incomeItemsArr = [];
     
-  start.disabled = true;
 
   const isNumber = n => {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -53,30 +52,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   AppData.prototype.check = () => {
     start.disabled = !salaryAmount.value.trim() || !isNumber(salaryAmount.value.trim());
-  };
-
-  AppData.prototype.start = function () {
-      this.budget = salaryAmount.value;
-      start.disabled = true;
-      
-      this.getExpenses();
-      this.getExpensesMonth();
-      this.getIncome();
-      this.getAddExpenses();
-      this.getAddIncome();
-      this.getBudget();
-      this.showResult();
-
-      start.setAttribute('style', 'display:none;');
-      cancel.setAttribute('style', 'display:block;');
-      inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]');
-      inputsAll = document.querySelectorAll('input[type=text]');
-      inputsL.forEach((item) => {
-          item.setAttribute('disabled', '');
-          item.setAttribute('style', 'background-color: #f3f3f3;');
-      });
-      incomePlus.setAttribute('disabled', '');
-      expensesPlus.setAttribute('disabled', '');
   };
 
   AppData.prototype.reset = function() {
@@ -258,13 +233,38 @@ document.addEventListener('DOMContentLoaded', ()=> {
     return this.budgetMonth * periodSelect.value;
   };
 
+  AppData.prototype.start = function () {
+    this.budget = salaryAmount.value;
+    start.disabled = true;
+
+    this.getExpenses();
+    this.getExpensesMonth();
+    this.getIncome();
+    this.getAddExpenses();
+    this.getAddIncome();
+    this.getBudget();
+    this.showResult();
+
+    start.setAttribute('style', 'display:none;');
+    cancel.setAttribute('style', 'display:block;');
+    inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]');
+    inputsAll = document.querySelectorAll('input[type=text]');
+    inputsL.forEach((item) => {
+        item.setAttribute('disabled', '');
+        item.setAttribute('style', 'background-color: #f3f3f3;');
+    });
+    incomePlus.setAttribute('disabled', '');
+    expensesPlus.setAttribute('disabled', '');
+  };
+
   AppData.prototype.eventsListeners = function() {
-    start.addEventListener('click', appData.start.bind(appData));
-    cancel.addEventListener('click', appData.reset.bind(appData));
-    expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
-    incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
-    periodSelect.addEventListener('input', appData.setPeriod.bind(appData));
-    salaryAmount.addEventListener('input', appData.check);
+    start.disabled = true;
+    start.addEventListener('click', this.start.bind(this));
+    cancel.addEventListener('click', this.reset.bind(this));
+    expensesPlus.addEventListener('click', this.addExpensesBlock.bind(this));
+    incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
+    periodSelect.addEventListener('input', this.setPeriod.bind(this));
+    salaryAmount.addEventListener('input', this.check.bind(this));
   };
 
   const appData = new AppData();
