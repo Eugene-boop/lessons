@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   DomElement.prototype.showElement = function() {
     if (this.selector.startsWith('.')) {
       const elem = document.createElement('div');
-      elem.classList.add = this.selector.slice(1);
+      elem.classList.add(this.selector.slice(1));
       elem.style.cssText = `height: ${this.height};
                             width: ${this.width};
                             background: ${this.bg};
@@ -33,6 +33,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   };
 
-  let newElem = new DomElement('#block', '100px', '200px', 'content-box radial-gradient(crimson, skyblue)', '24px');
+  let newElem = new DomElement('.block', '100px', '200px', 'content-box radial-gradient(crimson, skyblue)', '24px');
   newElem.showElement();
 });
