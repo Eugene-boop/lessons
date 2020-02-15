@@ -1,14 +1,11 @@
 document.addEventListener('DOMContentLoaded', ()=> {
   "use strict";
-  
-  let start = document.getElementById('start'),
+
+  const start = document.getElementById('start'),
     cancel = document.getElementById('cancel'),
     incomePlus = document.getElementsByTagName('button')[0],
     expensesPlus = document.getElementsByTagName('button')[1],
     depositCheck = document.querySelector('#deposit-check'),
-    depositBank = document.querySelector('.deposit-bank'),
-    depositAmount = document.querySelector('.deposit-amount'),
-    depositPercent = document.querySelector('.deposit-percent'),
     addIncomeItem = document.querySelectorAll('.additional_income-item'),
     budgMonthVal = document.getElementsByClassName('budget_month-value')[0],
     budgDayVal = document.getElementsByClassName('budget_day-value')[0],
@@ -25,20 +22,19 @@ document.addEventListener('DOMContentLoaded', ()=> {
     addExpTitle = document.querySelector('.additional_expenses-title'),
     targAmount = document.querySelector('.target-amount'),
     additionalExpenses = document.querySelector('.additional_expenses'),
-    expensesItems = document.querySelectorAll('.expenses-items'),
     periodSelect = document.querySelector('.period-select'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
-    incomeItems = document.querySelectorAll('.income-items'),
     periodAmount = document.querySelector('.period-amount'),
+    depositBank = document.querySelector('.deposit-bank'),
+    depositAmount = document.querySelector('.deposit-amount'),
+    depositPercent = document.querySelector('.deposit-percent');
+
+  let expensesItems = document.querySelectorAll('.expenses-items'),
+    incomeItems = document.querySelectorAll('.income-items'),
     inputsAll = document.querySelectorAll('input[type=text]'),
     inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]'),
     expensesItemsArr = [],
     incomeItemsArr = [];
-    
-
-  const isNumber = n => {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  };
 
   class AppData {
     constructor() {
@@ -54,7 +50,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       this.incomeMonth =  0;
     }
     check() {
-      start.disabled = !salaryAmount.value.trim() || !isNumber(salaryAmount.value.trim());
+      start.disabled = !salaryAmount.value.trim() || !this.isNum(salaryAmount.value.trim());
     }
   
     reset() {
@@ -208,7 +204,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   
     getTargetMonth() {
-      if (!targAmount.value.trim() || !isNumber(targAmount.value.trim())) {
+      if (!targAmount.value.trim() || !this.isNum(targAmount.value.trim())) {
         return 'Введите число';
       }
       return Math.ceil(targAmount.value / this.budgetMonth);
@@ -298,6 +294,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
       salaryAmount.addEventListener('input', this.check.bind(this));
       depositCheck.addEventListener('change', this.depositHadler.bind(this));
       depositPercent.addEventListener('input', this.depositValueCheck);
+    }
+
+    isNum(n) { 
+      return !isNaN(parseFloat(n)) && isFinite(n);
     }
   }
 
