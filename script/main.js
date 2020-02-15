@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       salaryAmount.addEventListener('input', this.check.bind(this));
     }
 
-    isNum() {
+    isNum(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);
     }
   }
