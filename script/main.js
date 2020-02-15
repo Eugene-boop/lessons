@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=> {
   "use strict";
   
-  let start = document.getElementById('start'),
+  const start = document.getElementById('start'),
     cancel = document.getElementById('cancel'),
     incomePlus = document.getElementsByTagName('button')[0],
     expensesPlus = document.getElementsByTagName('button')[1],
@@ -22,20 +22,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
     addExpTitle = document.querySelector('.additional_expenses-title'),
     targAmount = document.querySelector('.target-amount'),
     additionalExpenses = document.querySelector('.additional_expenses'),
-    expensesItems = document.querySelectorAll('.expenses-items'),
     periodSelect = document.querySelector('.period-select'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
+    periodAmount = document.querySelector('.period-amount');
+    
+  let expensesItems = document.querySelectorAll('.expenses-items'),
     incomeItems = document.querySelectorAll('.income-items'),
-    periodAmount = document.querySelector('.period-amount'),
     inputsAll = document.querySelectorAll('input[type=text]'),
     inputsL = salaryAmount.parentNode.parentNode.querySelectorAll('input[type=text]'),
     expensesItemsArr = [],
     incomeItemsArr = [];
-    
-
-  const isNumber = n => {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  };
 
   class AppData {
     constructor() {
@@ -51,7 +47,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       this.incomeMonth =  0;
     }
     check() {
-      start.disabled = !salaryAmount.value.trim() || !isNumber(salaryAmount.value.trim());
+      start.disabled = !salaryAmount.value.trim() || !this.isNum(salaryAmount.value.trim());
     }
   
     reset() {
@@ -199,7 +195,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   
     getTargetMonth() {
-      if (!targAmount.value.trim() || !isNumber(targAmount.value.trim())) {
+      if (!targAmount.value.trim() || !this.isNum(targAmount.value.trim())) {
         return 'Введите число';
       }
       return Math.ceil(targAmount.value / this.budgetMonth);
@@ -241,6 +237,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
       incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
       periodSelect.addEventListener('input', this.setPeriod.bind(this));
       salaryAmount.addEventListener('input', this.check.bind(this));
+    }
+
+    isNum() {
+      return !isNaN(parseFloat(n)) && isFinite(n);
     }
   }
 
