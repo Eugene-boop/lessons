@@ -96,6 +96,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
       }
       incomePlus.removeAttribute('disabled', '');
       expensesPlus.removeAttribute('disabled', '');
+      depositCheck.disabled = false;
+      depositCheck.checked = false; 
+      depositBank.style.display = '';
+      depositBank.disabled = false;
+      depositBank.value = '';
     }
   
     addExpensesBlock() {
@@ -215,23 +220,17 @@ document.addEventListener('DOMContentLoaded', ()=> {
   
     depositValueCheck() {
       if (depositPercent.value > 100 || depositPercent.value < 0) {
-        start.style.disabled = true;
-        return true;
-      } 
-      start.style.disabled = false;
+        start.disabled = true;
+        alert('Введите корректное значение в поле проценты');
+      } else {
+      start.disabled = false;
+      }
     }
 
     start() {
       this.budget = salaryAmount.value;
       start.disabled = true;
-      if (this.depositValueCheck()) {
-        alert('Введите корректное значение в поле проценты');
-        start.style.disabled = true;
-        depositPercent.addEventListener('input', this.depositValueCheck);
-        return;
-      } else {
-        depositPercent.remove('input', this.depositValueCheck);
-      }
+      
   
       this.getExpenses();
       this.getExpensesMonth();
@@ -252,6 +251,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
       });
       incomePlus.setAttribute('disabled', '');
       expensesPlus.setAttribute('disabled', '');
+      depositCheck.disabled = true; 
+      depositBank.disabled = true;
     }
     
     getInfoDeposit() {
@@ -296,6 +297,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       periodSelect.addEventListener('input', this.setPeriod.bind(this));
       salaryAmount.addEventListener('input', this.check.bind(this));
       depositCheck.addEventListener('change', this.depositHadler.bind(this));
+      depositPercent.addEventListener('input', this.depositValueCheck);
     }
   }
 
