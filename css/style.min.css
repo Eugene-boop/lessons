@@ -5,13 +5,11 @@
 }
 
 body {
-  text-align: center;
   height: 100vh;
-  padding-top: 40vh
 }
 
 .wrap {
-  display: inline-block;
-  text-align: center;
+  height: 100vh;
+  position: relative;
 }
 
