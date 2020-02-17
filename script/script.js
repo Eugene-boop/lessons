@@ -32,9 +32,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     };
     updateClock();
-    setInterval(updateClock, 1000);
+    const idInterval = setInterval(updateClock, 1000);
+    if (getTimeRemaining().seconds < 0) clearInterval(idInterval);
 
   };
 
-  countTimer('17 February 2020');
+  countTimer('18 February 2020');
 });
