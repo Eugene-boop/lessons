@@ -19,23 +19,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
     };
     const addZero = (item) => {
+      console.log('item: ', item);
       if (item <= 0) return '00';
       if (item < 10) return '0' + item;
       else return item;
     };
+
+
     const updateClock = () => {
       const timer = getTimeRemaining();
 
       timerHours.textContent = addZero(timer.hours);
       timerMinutes.textContent = addZero(timer.minutes);
       timerSeconds.textContent = addZero(timer.seconds);
-
     };
-    updateClock();
-    const idInterval = setInterval(updateClock, 1000);
-    if (getTimeRemaining().seconds < 0) clearInterval(idInterval);
 
+    updateClock();
+    const id = setInterval(() => {
+        if (getTimeRemaining().seconds < 0) clearInterval(id);
+        updateClock();
+      }, 1000); 
   };
 
-  countTimer('18 February 2020');
+  countTimer('February 18, 2020 00:37:50');
 });
