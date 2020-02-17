@@ -3,12 +3,12 @@ window.addEventListener('DOMContentLoaded', () => {
   
   //  таймер 
   const countTimer = (deadline) => {
-    let timerHours = document.querySelector('#timer-hours'),
+    const timerHours = document.querySelector('#timer-hours'),
     timerMinutes = document.querySelector('#timer-minutes'),
     timerSeconds = document.querySelector('#timer-seconds');
 
-    function getTimeRemaining() {
-      let dateStop = new Date(deadline).getTime(),
+    const getTimeRemaining = () => {
+      const dateStop = new Date(deadline).getTime(),
       dateNow = new Date().getTime(),
       timeRemain = (dateStop - dateNow) / 1000,
       seconds = Math.floor(timeRemain % 60),
@@ -17,21 +17,24 @@ window.addEventListener('DOMContentLoaded', () => {
       
       return {timeRemain, hours, minutes, seconds};
 
-    }
-
-    function updateClock() {
+    };
+    const addZero = (item) => {
+      if (item <= 0) return '00';
+      if (item < 10) return '0' + item;
+      else return item;
+    };
+    const updateClock = () => {
       const timer = getTimeRemaining();
 
-      timerHours.textContent = timer.hours;
-      timerMinutes.textContent = timer.minutes;
-      timerSeconds.textContent = timer.seconds;
+      timerHours.textContent = addZero(timer.hours);
+      timerMinutes.textContent = addZero(timer.minutes);
+      timerSeconds.textContent = addZero(timer.seconds);
 
-
-    }
+    };
     updateClock();
     setInterval(updateClock, 1000);
 
   };
 
-  countTimer('16 February 2020');
+  countTimer('17 February 2020');
 });
