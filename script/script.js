@@ -41,5 +41,5 @@ window.addEventListener('DOMContentLoaded', () => {
       }, 1000); 
   };
 
-  countTimer('February 18, 2020 00:37:50');
+  countTimer('February 19, 2020 00:00:00');
 });
