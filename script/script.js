@@ -54,16 +54,16 @@ window.addEventListener('DOMContentLoaded', () => {
       closeBtn = document.querySelector('.close-btn'),
       menuItems = menu.querySelectorAll('li');
 
-    const handlerMenu = (event) => {
-      menu.classList.toggle('active-menu');
-    };
+    document.addEventListener('click', (e) => {
+      let target = e.target;
+      target = target.closest('.menu') || target;
 
-    menu.addEventListener('click', (e) => {
-      if (e.target.matches('menu a')) {
-        handlerMenu();
-      }
+      if (target.matches('menu a') || target.matches('.menu')) {
+        menu.classList.toggle('active-menu');
+      } else target = target.closest('menu');
+
+      if (!target) menu.classList.remove('active-menu');
     });
-    btnMenu.addEventListener('click', handlerMenu);
     
   };
 
