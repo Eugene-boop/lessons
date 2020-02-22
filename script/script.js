@@ -1,8 +1,9 @@
-window.addEventListener('DOMContentLoaded', () => {
-  'use strict';
+'use strict';
 
-  //  таймер 
-  const countTimer = (deadline) => {
+window.addEventListener('DOMContentLoaded', () => {
+
+  //  таймер
+  const countTimer = deadline => {
     const timerHours = document.querySelector('#timer-hours'),
       timerMinutes = document.querySelector('#timer-minutes'),
       timerSeconds = document.querySelector('#timer-seconds');
@@ -23,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
       };
 
     };
-    const addZero = (item) => {
+    const addZero = item => {
       if (item <= 0) return '00';
       if (item < 10) return '0' + item;
       else return item;
@@ -49,12 +50,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Меню
   const toggleMenu = () => {
-    const btnMenu = document.querySelector('.menu'),
-      menu = document.querySelector('menu'),
-      closeBtn = document.querySelector('.close-btn'),
-      menuItems = menu.querySelectorAll('li');
+    const menu = document.querySelector('menu');
 
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', e => {
       let target = e.target;
       target = target.closest('.menu') || target;
 
@@ -64,7 +62,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (!target) menu.classList.remove('active-menu');
     });
-    
   };
 
   toggleMenu();
@@ -75,7 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
       popupBtn = document.querySelectorAll('.popup-btn'),
       popupContent = document.querySelector('.popup-content');
 
-    popupBtn.forEach((elem) => {
+    popupBtn.forEach(elem => {
       elem.addEventListener('click', () => {
         popup.style.display = 'block';
         if (document.documentElement.clientWidth >= 768) {
@@ -83,11 +80,11 @@ window.addEventListener('DOMContentLoaded', () => {
           popupContent.style.opacity = `0`;
           animate({
             duration: 150,
-            timing: function (timeFraction) {
+            timing(timeFraction) {
               return timeFraction;
             },
-            draw: function (progress) {
-              popupContent.style.top = `${20/progress}%`;
+            draw(progress) {
+              popupContent.style.top = `${20 / progress}%`;
               popupContent.style.opacity = `${progress}`;
             }
           });
@@ -101,13 +98,13 @@ window.addEventListener('DOMContentLoaded', () => {
       timing
     }) {
 
-      let start = performance.now();
+      const start = performance.now();
 
       requestAnimationFrame(function animate(time) {
         let timeFraction = (time - start) / duration / 3;
         if (timeFraction > 1) timeFraction = 1;
 
-        let progress = timing(timeFraction);
+        const progress = timing(timeFraction);
 
         draw(progress);
 
@@ -118,13 +115,13 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    popup.addEventListener('click', (e) => {
+    popup.addEventListener('click', e => {
       let target = e.target;
 
-      if(target.classList.contains('popup-close')) {
+      if (target.classList.contains('popup-close')) {
         popup.style.display = 'none';
       } else target = target.closest('.popup-content');
-      
+
       if (!target) {
         popup.style.display = 'none';
       }
@@ -152,9 +149,9 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     };
 
-    tabHeader.addEventListener('click', (e) => {
+    tabHeader.addEventListener('click', e => {
       let target = e.target;
-          target = target.closest('.service-header-tab');
+      target = target.closest('.service-header-tab');
 
       if (target) {
         tab.forEach((item, i) => {
@@ -171,9 +168,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const slider = () => {
     const slide = document.querySelectorAll('.portfolio-item'),
-    btn = document.querySelectorAll('.portfolio-btn'),
-    dotUl = document.querySelector('.portfolio-dots'),
-    slider = document.querySelector('.portfolio-content');
+      dotUl = document.querySelector('.portfolio-dots'),
+      slider = document.querySelector('.portfolio-content');
 
     const addDots = () => {
       let dotStr = '';
@@ -189,13 +185,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const dot = dotUl.childNodes;
 
     let currentSlide = 0,
-    interval;
+      interval;
 
-    const prevSlide = (elem, index, strClass) => { 
+    const prevSlide = (elem, index, strClass) => {
       elem[index].classList.remove(strClass);
     };
 
-    const nextSlide = (elem, index, strClass) => { 
+    const nextSlide = (elem, index, strClass) => {
       elem[index].classList.add(strClass);
     };
 
@@ -218,17 +214,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
     startSlide(1500);
 
-    slider.addEventListener('click', (event) => {
+    slider.addEventListener('click', event => {
       event.preventDefault();
-      
-      let target = event.target;
+
+      const target = event.target;
 
       if (!target.matches('#arrow-right, #arrow-left, .dot')) return;
 
       prevSlide(slide, currentSlide, 'portfolio-item-active');
       prevSlide(dot, currentSlide, 'dot-active');
 
-      if(target.matches('#arrow-right')) {
+      if (target.matches('#arrow-right')) {
         currentSlide++;
       } else if (target.matches('#arrow-left')) {
         currentSlide--;
@@ -246,14 +242,14 @@ window.addEventListener('DOMContentLoaded', () => {
       nextSlide(dot, currentSlide, 'dot-active');
     });
 
-    slider.addEventListener('mouseover', (e) => {
+    slider.addEventListener('mouseover', e => {
       if (e.target.matches('.portfolio-btn')  ||
       event.target.matches('.dot')) {
         stopSlide();
       }
     });
 
-    slider.addEventListener('mouseout', (e) => {
+    slider.addEventListener('mouseout', e => {
       if (e.target.matches('.portfolio-btn')  ||
       event.target.matches('.dot')) {
         startSlide();
