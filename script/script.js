@@ -237,7 +237,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       if (currentSlide >= slide.length) currentSlide = 0;
-      if (currentSlide < 0) currentSlide = currentSlide.length - 1;
+      if (currentSlide < 0) currentSlide = slide.length - 1;
       nextSlide(slide, currentSlide, 'portfolio-item-active');
       nextSlide(dot, currentSlide, 'dot-active');
     });
