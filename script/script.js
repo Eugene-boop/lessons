@@ -1,8 +1,7 @@
+'use strict';
 window.addEventListener('DOMContentLoaded', () => {
-  'use strict';
-
-  //  таймер 
-  const countTimer = (deadline) => {
+  //  таймер
+  const countTimer = deadline => {
     const timerHours = document.querySelector('#timer-hours'),
       timerMinutes = document.querySelector('#timer-minutes'),
       timerSeconds = document.querySelector('#timer-seconds');
@@ -23,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
       };
 
     };
-    const addZero = (item) => {
+    const addZero = item => {
       if (item <= 0) return '00';
       if (item < 10) return '0' + item;
       else return item;
@@ -56,14 +55,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const handlerMenu = () => {
       menu.classList.toggle('active-menu');
-      
+
     };
 
     btnMenu.addEventListener('click', handlerMenu);
 
-    closeBtn.addEventListener('click',handlerMenu);
+    closeBtn.addEventListener('click', handlerMenu);
 
-    menuItems.forEach((elem) => { elem.addEventListener('click', handlerMenu);});
+    menuItems.forEach(elem => { elem.addEventListener('click', handlerMenu); });
 
   };
 
@@ -72,53 +71,81 @@ window.addEventListener('DOMContentLoaded', () => {
   // popup
   const togglePopUp = () => {
     const popup = document.querySelector('.popup'),
-    popupBtn = document.querySelectorAll('.popup-btn'),
-    popupClose = document.querySelector('.popup-close'),
-    popupContent = document.querySelector('.popup-content');
+      popupBtn = document.querySelectorAll('.popup-btn'),
+      popupClose = document.querySelector('.popup-close'),
+      popupContent = document.querySelector('.popup-content');
 
-    popupBtn.forEach((elem) => {
+    popupBtn.forEach(elem => {
       elem.addEventListener('click', () => {
-        popup.style.display ='block';
+        popup.style.display = 'block';
         if (document.documentElement.clientWidth >= 768) {
-        popupContent.style.top = `100%`;
-        popupContent.style.opacity = `0`;  
-        animate({
-          duration: 150,
-          timing: function(timeFraction) {
-            return timeFraction;
-          },
-          draw: function(progress) {
-            popupContent.style.top = `${20/progress}%`;
-            popupContent.style.opacity = `${progress}`;  
-          }
-        });
-       }
+          popupContent.style.top = `100%`;
+          popupContent.style.opacity = `0`;
+          animate({
+            duration: 150,
+            timing(timeFraction) {
+              return timeFraction;
+            },
+            draw(progress) {
+              popupContent.style.top = `${20 / progress}%`;
+              popupContent.style.opacity = `${progress}`;
+            }
+          });
+        }
       });
     });
     popupClose.addEventListener('click', () => {
       popup.style.display = 'none';
     });
-    
-    function animate({duration, draw, timing}) {
 
-      let start = performance.now();
-    
+    function animate({ duration, draw, timing }) {
+
+      const start = performance.now();
+
       requestAnimationFrame(function animate(time) {
         let timeFraction = (time - start) / duration / 3;
         if (timeFraction > 1) timeFraction = 1;
-    
-        let progress = timing(timeFraction);
-    
+
+        const progress = timing(timeFraction);
+
         draw(progress);
-    
+
         if (timeFraction < 1) {
           requestAnimationFrame(animate);
         }
-    
+
       });
     }
 
   };
 
   togglePopUp();
+
+  const scrollBtn = document.querySelector(`a[href="#service-block"]`);
+  scrollBtn.addEventListener('click', e => {
+    e.preventDefault();
+    const speed = 5;
+    const pageY = window.pageYOffset,
+      hash = document.getElementById('service-block'),
+      distTop = document.querySelector('#service-block').getBoundingClientRect().top;
+
+    let start = 0;
+
+    const step = (time = 0.5) => {
+      if (!start) start = time;
+
+      const progress = start - time;
+
+      const r = distTop < 0 ? Math.max(pageY - progress * speed, pageY + distTop) : 
+        Math.min(pageY - progress * speed, pageY + distTop);
+
+      window.scrollTo(0, r);
+      console.log('r: ', r);
+
+
+      if (r < pageY + distTop) requestAnimationFrame(step);
+
+    };
+    requestAnimationFrame(step);
+  });
 });
