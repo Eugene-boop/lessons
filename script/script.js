@@ -258,4 +258,40 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   slider();
+
+  const changeImgs = () => {
+    const row = document.querySelector('.command .container .row');
+    let oldSrc;
+
+    row.addEventListener('mouseover', e => {
+      const target = e.target;
+      oldSrc = target.getAttribute('src');
+      if (target.matches('img')) {
+        target.src = target.dataset.img;
+      }
+    });
+
+    row.addEventListener('mouseout', e => {
+      const target = e.target;
+      if (target.matches('img')) {
+        target.src = oldSrc;
+      }
+    });
+  };
+
+  changeImgs();
+
+  const calc = () => {
+    const calcBlock = document.querySelector('.calc-block');
+    let savedValue;
+    calcBlock.addEventListener('input', e => {
+      const target = e.target;
+      if (target.matches('.calc-item[type="number"')) {
+        if (target.value) savedValue = target.value;
+        target.value = savedValue.replace(/\D/g, '');
+      }
+    });
+  };
+
+  calc();
 });
