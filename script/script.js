@@ -126,7 +126,6 @@ window.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const speed = 5;
     const pageY = window.pageYOffset,
-      hash = document.getElementById('service-block'),
       distTop = document.querySelector('#service-block').getBoundingClientRect().top;
 
     let start = 0;
@@ -136,7 +135,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       const progress = start - time;
 
-      const r = distTop < 0 ? Math.max(pageY - progress * speed, pageY + distTop) : 
+      const r = distTop < 0 ? Math.max(pageY - progress * speed, pageY + distTop) :
         Math.min(pageY - progress * speed, pageY + distTop);
 
       window.scrollTo(0, r);
