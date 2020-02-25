@@ -282,14 +282,29 @@ window.addEventListener('DOMContentLoaded', () => {
   changeImgs();
 
   const calc = () => {
-    const calcBlock = document.querySelector('.calc-block');
-    let savedValue;
-    calcBlock.addEventListener('input', e => {
-      const target = e.target;
-      if (target.matches('.calc-item[type="number"')) {
-        if (target.value) savedValue = target.value;
-        target.value = savedValue.replace(/\D/g, '');
-      }
+    // const calcBlock = document.querySelector('.calc-block');
+    // let savedValue = '';
+    // calcBlock.addEventListener('input', e => {
+    //   const target = e.target;
+    //   if (target.matches('.calc-item[type="number"')) {
+    //     if (!target.value && savedValue.length === 1) savedValue = '';
+    //     if (target.value) savedValue = target.value;
+    //     console.log('target.value: ', target.value);
+    //     target.value = savedValue.replace(/\D/g, '');
+    //   }
+    //   return e.keyCode !== 69;
+    // });
+    const input = document.querySelectorAll('.calc-item[type="number"'),
+      savedValues = ['', '', ''];
+    input.forEach((elem, i) => {
+      elem.addEventListener('input', e => {
+        const target = e.target;
+        if (target.matches('.calc-item[type="number"')) {
+          if (target.value) savedValues[i] = target.value;
+          if (!target.value && savedValues[i].length === 1) savedValues[i] = '';
+          target.value = savedValues[i].replace(/\D/g, '');
+        }
+      });
     });
   };
 
