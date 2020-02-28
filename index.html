@@ -315,7 +315,7 @@
 							</div>
 							<div class="col-md-12 col-sm-12 col-12">
 								<input class="mess" id="form2-message" name="user_message"
-											 placeholder="Ваше сообщение">
+											 placeholder="Ваше сообщение"  type="text" >
 							</div>
 						</div>
 					</div>
@@ -413,6 +413,66 @@
 	</div>
 </div>
 
+<script src="plugins/validator/validator.js"></script>
+<script>
+	(new Validator({
+		selector: '#form1',
+		pattern: {},
+		method: {
+			'tel': [
+				['notEmpty'],
+				['pattern', 'phone'],
+			],
+			'email': [
+				['notEmpty'],
+				['pattern', 'email'],
+			],
+			'text': [
+				['notEmpty'],
+				['pattern', 'text'],
+			]
+		},
+	})).init();
+
+	(new Validator({
+		selector: '#form2',
+		pattern: {},
+		method: {
+			'tel': [
+				['notEmpty'],
+				['pattern', 'phone'],
+			],
+			'email': [
+				['notEmpty'],
+				['pattern', 'email'],
+			],
+			'text': [
+				['notEmpty'],
+				['pattern', 'text'],
+			]
+		},
+	})).init();
+
+	(new Validator({
+		selector: '#form3',
+		pattern: {},
+		method: {
+			'tel': [
+				['notEmpty'],
+				['pattern', 'phone'],
+			],
+			'email': [
+				['notEmpty'],
+				['pattern', 'email'],
+			],
+			'text': [
+				['notEmpty'],
+				['pattern', 'text'],
+			]
+		},
+	})).init();
+	
+</script>
 <script src="script/script.js"></script>
 </body>
 </html>
