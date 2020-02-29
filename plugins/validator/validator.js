@@ -7,6 +7,7 @@ class Validator {
     this.elementsForm = [...this.form.elements].filter(item => item.tagName.toLowerCase() !== 'button' &&
       item.type !== 'button');
     this.error = new Set();
+    this.sendBtn = this.form.querySelector('button');
   }
 
   init() {
@@ -15,6 +16,7 @@ class Validator {
     this.elementsForm.forEach(elem => elem.addEventListener('change', this.checkIt.bind(this)));
     this.form.addEventListener('submit', e => {
       this.elementsForm.forEach(elem => this.checkIt({  target: elem }));
+
       if (this.error.size) {
         e.preventDefault();
       }
@@ -24,7 +26,7 @@ class Validator {
   isValid(elem) {
     const validatorMethod = {
       notEmpty(elem) {
-        if (!elem.value.trim) {
+        if (!elem.value.trim()) {
           return false;
         }
         return true;
@@ -49,9 +51,11 @@ class Validator {
     const target = e.target;
     if (this.isValid(target)) {
       this.showSuccess(target);
+      this.sendBtn.disabled = false;
     } else {
       this.showError(target);
       this.error.add(target);
+      this.sendBtn.disabled = true;
     }
   }
 
@@ -96,8 +100,9 @@ class Validator {
 
     this.pattern.phone = this.pattern.phone ? this.pattern.phone : /^\+?[78]([-()]*\d){10}$/;
 
-    this.pattern.email = this.pattern.email ? this.pattern.email : /^\w+@\w+\.w{2,}$/;
+    this.pattern.email = this.pattern.email ? this.pattern.email : /^\w+@\w+\.\w{2,}$/;
 
-    this.pattern.text = this.pattern.text ? this.pattern.text : /[А-яа-яЁё]+/;
+    this.pattern.text = this.pattern.text ? this.pattern.text : /[А-яа-яЁё\s]+/;
   }
 }
+

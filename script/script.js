@@ -337,4 +337,79 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   calc();
+
+  const sendForm = selector => {
+    const errorMessage = 'Что-то пошло не так',
+      loadingMessage = 'Загрузка',
+      successMessage = 'Спасибо! Скоро свяжемся';
+
+    const form = document.querySelector(`${selector}`);
+
+    const statusMessage = document.createElement('div');
+    statusMessage.textContent = ``;
+    statusMessage.style.fontSize = '2rem';
+    statusMessage.style.color = 'white';
+
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      form.appendChild(statusMessage);
+      statusMessage.textContent = successMessage;
+      const formData = new FormData(form);
+      const body = {};
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+      getData(body, () => {
+        statusMessage.textContent = successMessage;
+      }, error => {
+        statusMessage.textContent = errorMessage;
+        console.error(error);
+      });
+    });
+
+    const getData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+
+      request.addEventListener('readystatechange', () => {
+        statusMessage.textContent = loadingMessage;
+        if (request.readyState !== 4) return;
+        if (request.status === 200)  {
+          outputData();
+          for (const key of form.elements) {
+            if (key.matches('input')) key.value = '';
+          }
+        } else {
+          errorData(request.status);
+        }
+      });
+
+      request.open('GET', './server.php');
+      request.setRequestHeader('Content-Type', 'multipart/form-data');
+
+      request.send(JSON.stringify(body));
+    };
+
+  };
+
+  sendForm('#form1');
+  sendForm('#form2');
+  sendForm('#form3');
+
+  const forbidInput = (pattern, selector) => {
+    selector.forEach((elem, i) => {
+      const inputs = document.querySelectorAll(elem);
+      inputs.forEach(input => {
+        input.addEventListener('input', () => {
+          input.value = input.value.replace(pattern[i], '');
+        });
+      });
+    });
+  };
+
+  forbidInput(
+    [/[^\d|+]/ig, /[^А-ЯЁ\s]/ig],
+    ['input[type="tel"]', 'input[type="text"]']
+  );
+
 });
