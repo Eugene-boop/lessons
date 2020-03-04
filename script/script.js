@@ -340,7 +340,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const sendForm = selector => {
     const errorMessage = 'Что-то пошло не так',
-      loadingMessage = 'Загрузка',
       successMessage = 'Спасибо! Скоро свяжемся';
 
     const form = document.querySelector(`${selector}`);
@@ -361,46 +360,33 @@ window.addEventListener('DOMContentLoaded', () => {
         body[key] = val;
       });
 
-      getData(body)
-        .then(() => {
+      postData(body)
+        .then(response => {
+          if (response.status !== 200)  throw new Error(response.statusText);
           statusMessage.textContent = successMessage;
+          for (const key of form.elements) {
+            if (key.matches('input')) key.value = '';
+          }
         })
         .catch(error => {
           statusMessage.textContent = errorMessage;
-          console.error(error);
+          console.log(error);
         });
     });
-
-    const getData = body => {
-
-      return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-
-        request.addEventListener('readystatechange', () => {
-          statusMessage.textContent = loadingMessage;
-          if (request.readyState !== 4) return;
-          if (request.status === 200)  {
-            resolve();
-            for (const key of form.elements) {
-              if (key.matches('input')) key.value = '';
-            }
-          } else {
-            reject(request.status);
-          }
-        });
-
-        request.open('GET', './server.php');
-        request.setRequestHeader('Content-Type', 'multipart/form-data');
-
-        request.send(JSON.stringify(body));
-      });
-    };
 
   };
 
   sendForm('#form1');
   sendForm('#form2');
   sendForm('#form3');
+
+  const postData = body => fetch('./server.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
 
   const forbidInput = (pattern, selector) => {
     selector.forEach((elem, i) => {
