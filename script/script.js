@@ -121,30 +121,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   togglePopUp();
 
-  const scrollBtn = document.querySelector(`a[href="#service-block"]`);
-  scrollBtn.addEventListener('click', e => {
+  // плавная прокрутка
+  document.querySelector('a[href="#service-block"]').addEventListener('click', (e) => {
     e.preventDefault();
-    const speed = 5;
-    const pageY = window.pageYOffset,
-      distTop = document.querySelector('#service-block').getBoundingClientRect().top;
-
-    let start = 0;
-
-    const step = (time = 0.5) => {
-      if (!start) start = time;
-
-      const progress = start - time;
-
-      const r = distTop < 0 ? Math.max(pageY - progress * speed, pageY + distTop) :
-        Math.min(pageY - progress * speed, pageY + distTop);
-
-      window.scrollTo(0, r);
-      console.log('r: ', r);
-
-
-      if (r < pageY + distTop) requestAnimationFrame(step);
-
-    };
-    requestAnimationFrame(step);
+    document.getElementById('service-block').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   });
 });
