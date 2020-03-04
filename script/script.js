@@ -360,34 +360,40 @@ window.addEventListener('DOMContentLoaded', () => {
       formData.forEach((val, key) => {
         body[key] = val;
       });
-      getData(body, () => {
-        statusMessage.textContent = successMessage;
-      }, error => {
-        statusMessage.textContent = errorMessage;
-        console.error(error);
-      });
+
+      getData(body)
+        .then(() => {
+          statusMessage.textContent = successMessage;
+        })
+        .catch(error => {
+          statusMessage.textContent = errorMessage;
+          console.error(error);
+        });
     });
 
-    const getData = (body, outputData, errorData) => {
-      const request = new XMLHttpRequest();
+    const getData = body => {
 
-      request.addEventListener('readystatechange', () => {
-        statusMessage.textContent = loadingMessage;
-        if (request.readyState !== 4) return;
-        if (request.status === 200)  {
-          outputData();
-          for (const key of form.elements) {
-            if (key.matches('input')) key.value = '';
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+
+        request.addEventListener('readystatechange', () => {
+          statusMessage.textContent = loadingMessage;
+          if (request.readyState !== 4) return;
+          if (request.status === 200)  {
+            resolve();
+            for (const key of form.elements) {
+              if (key.matches('input')) key.value = '';
+            }
+          } else {
+            reject(request.status);
           }
-        } else {
-          errorData(request.status);
-        }
+        });
+
+        request.open('GET', './server.php');
+        request.setRequestHeader('Content-Type', 'multipart/form-data');
+
+        request.send(JSON.stringify(body));
       });
-
-      request.open('GET', './server.php');
-      request.setRequestHeader('Content-Type', 'multipart/form-data');
-
-      request.send(JSON.stringify(body));
     };
 
   };
