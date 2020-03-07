@@ -7,6 +7,7 @@ import 'formdata-polyfill';
 import 'es6-promise/auto';
 import 'fetch-polyfill';
 import smoothscroll from 'smoothscroll-polyfill';
+smoothscroll.polyfill();
 
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
