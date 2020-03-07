@@ -9,7 +9,8 @@ const sendForm = selector => {
   statusMessage.style.fontSize = '2rem';
   statusMessage.style.color = 'white';
 
-
+  debugger;
+  
   form.addEventListener('submit', e => {
     e.preventDefault();
     form.appendChild(statusMessage);
@@ -35,7 +36,7 @@ const sendForm = selector => {
 
   });
 
-  const postData = body => fetch('./server.php', {
+  const postData = body => fetch('../server.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
