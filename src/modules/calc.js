@@ -1,3 +1,4 @@
+'use strict';
 const calc = (price = 100) => {
   const input = document.querySelectorAll('.calc-item[type="number"');
 
@@ -41,9 +42,9 @@ const calc = (price = 100) => {
       total = price * typeValue * squareValue * countValue * dayValue;
     }
 
-    totalValue.textContent = total;
+    totalValue.textContent = Math.ceil(total);
   };
-  calcBlock.addEventListener('input', e => {
+  calcBlock.addEventListener('change', e => {
     const target = e.target;
 
     if (target.matches('.calc-item')) {

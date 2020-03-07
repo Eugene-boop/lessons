@@ -1,3 +1,4 @@
+'use strict';
 const sendForm = selector => {
   const errorMessage = 'Что-то пошло не так',
     successMessage = 'Спасибо! Скоро свяжемся';
@@ -10,7 +11,7 @@ const sendForm = selector => {
   statusMessage.style.color = 'white';
 
   debugger;
-  
+
   form.addEventListener('submit', e => {
     e.preventDefault();
     form.appendChild(statusMessage);
@@ -23,6 +24,9 @@ const sendForm = selector => {
 
     postData(body)
       .then(response => {
+        setTimeout(() => {
+          form.removeChild(statusMessage);
+        }, 5000);
         if (response.status !== 200)  throw new Error(response.statusText);
         statusMessage.textContent = successMessage;
         for (const key of form.elements) {

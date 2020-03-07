@@ -1,3 +1,4 @@
+'use strict';
 const forbidInput = (pattern, selector) => {
   selector.forEach((elem, i) => {
     const inputs = document.querySelectorAll(elem);

@@ -1,3 +1,4 @@
+'use strict';
 const changeImgs = () => {
   const row = document.querySelector('.command .container .row');
   let oldSrc;

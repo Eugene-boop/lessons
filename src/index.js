@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sendForm('#form3');
   // запрет на ввод
   forbidInput(
-    [/[^\d|+]/ig, /[^А-ЯЁ\s]/ig],
+    [/[^\d|+]/ig, /[A-Z\d]/ig],
     ['input[type="tel"]', 'input[type="text"]']
   );
   // плавная прокрутка

@@ -1,3 +1,4 @@
+'use strict';
 const smoothScroll = (from, to) => {
   document.querySelector(from).addEventListener('click', e => {
     e.preventDefault();

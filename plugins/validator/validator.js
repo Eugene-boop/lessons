@@ -100,7 +100,7 @@ class Validator {
 
     this.pattern.phone = this.pattern.phone ? this.pattern.phone : /^\+?[78]([-()]*\d){10}$/;
 
-    this.pattern.email = this.pattern.email ? this.pattern.email : /^\w+@\w+\.\w{2,}$/;
+    this.pattern.email = this.pattern.email ? this.pattern.email : /^\w+@\w+\.[\w\.]{2,}$/;
 
     this.pattern.text = this.pattern.text ? this.pattern.text : /[А-яа-яЁё\s]+/;
   }
