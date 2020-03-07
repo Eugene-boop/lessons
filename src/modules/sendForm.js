@@ -10,12 +10,11 @@ const sendForm = selector => {
   statusMessage.style.fontSize = '2rem';
   statusMessage.style.color = 'white';
 
-  debugger;
-
-  form.addEventListener('submit', e => {
+  // но вот form.addEventListener('submit', e => { 
+  // вообще не срабатывает при клике на кнопку
+  form.querySelector('.btn.form-btn').addEventListener('click', e => {
     e.preventDefault();
     form.appendChild(statusMessage);
-    statusMessage.textContent = successMessage;
     const formData = new FormData(form);
     const body = {};
     formData.forEach((val, key) => {
@@ -40,7 +39,7 @@ const sendForm = selector => {
 
   });
 
-  const postData = body => fetch('../server.php', {
+  const postData = body => fetch('./server.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
