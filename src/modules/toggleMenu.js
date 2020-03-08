@@ -16,10 +16,15 @@ const toggleMenu = () => {
   
   const menu = document.querySelector('menu');
 
-  document.addEventListener('click', e => {
+  document.querySelector('body').addEventListener('click', e => {
+    if (e.target.matches('button')) {
+      menu.classList.remove('active-menu');
+      return;
+    }
     e.preventDefault();
     let target = e.target;
     target = target.closest('.menu') || target;
+    console.log('target: ', target);
 
     if (target.matches('.close-btn') || target.matches('.menu')) {
       menu.classList.toggle('active-menu');
@@ -29,6 +34,7 @@ const toggleMenu = () => {
     } else target = target.closest('menu');
 
     if (!target) menu.classList.remove('active-menu');
+    
   });
 };
 

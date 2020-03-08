@@ -10,9 +10,7 @@ const sendForm = selector => {
   statusMessage.style.fontSize = '2rem';
   statusMessage.style.color = 'white';
 
-  // но вот form.addEventListener('submit', e => { 
-  // вообще не срабатывает при клике на кнопку
-  form.querySelector('.btn.form-btn').addEventListener('click', e => {
+  form.addEventListener('submit', e => {
     e.preventDefault();
     form.appendChild(statusMessage);
     const formData = new FormData(form);
@@ -23,6 +21,7 @@ const sendForm = selector => {
 
     postData(body)
       .then(response => {
+        console.log('response: ', response);
         setTimeout(() => {
           form.removeChild(statusMessage);
         }, 5000);
@@ -37,16 +36,19 @@ const sendForm = selector => {
         console.log(error);
       });
 
+
+
   });
 
-  const postData = body => fetch('./server.php', {
+  const postData = data => fetch('./server.php', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json;charset=utf-8',
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(data),
+    credentials: 'include'  
   });
-
+  
 };
 
 export default sendForm;
