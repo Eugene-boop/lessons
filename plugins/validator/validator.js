@@ -1,5 +1,5 @@
 'use strict';
-class Validator {
+export default class Validator {
   constructor({ selector, pattern, method }) {
     this.form = document.querySelector(selector);
     this.pattern = pattern;
@@ -95,59 +95,3 @@ class Validator {
   }
 }
 
-(new Validator({
-  selector: '#form1',
-  pattern: {},
-  method: {
-    'tel': [
-      ['notEmpty'],
-      ['pattern', 'phone'],
-    ],
-    'email': [
-      ['notEmpty'],
-      ['pattern', 'email'],
-    ],
-    'text': [
-      ['notEmpty'],
-      ['pattern', 'text'],
-    ]
-  },
-})).init();
-
-(new Validator({
-  selector: '#form2',
-  pattern: {},
-  method: {
-    'tel': [
-      ['notEmpty'],
-      ['pattern', 'phone'],
-    ],
-    'email': [
-      ['notEmpty'],
-      ['pattern', 'email'],
-    ],
-    'text': [
-      ['notEmpty'],
-      ['pattern', 'text'],
-    ]
-  },
-})).init();
-
-(new Validator({
-  selector: '#form3',
-  pattern: {},
-  method: {
-    'tel': [
-      ['notEmpty'],
-      ['pattern', 'phone'],
-    ],
-    'email': [
-      ['notEmpty'],
-      ['pattern', 'email'],
-    ],
-    'text': [
-      ['notEmpty'],
-      ['pattern', 'text'],
-    ]
-  },
-})).init();
