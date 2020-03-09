@@ -16,9 +16,10 @@ class Validator {
     this.elementsForm.forEach(elem => elem.addEventListener('change', this.checkIt.bind(this)));
     this.form.addEventListener('submit', e => {
       this.elementsForm.forEach(elem => this.checkIt({  target: elem }));
-
+      
       if (this.error.size) {
         e.preventDefault();
+        e.stopImmediatePropagation();
       }
     });
   }
@@ -49,34 +50,26 @@ class Validator {
 
   checkIt(e) {
     const target = e.target;
+
     if (this.isValid(target)) {
       this.showSuccess(target);
-      this.sendBtn.disabled = false;
+      this.error.delete(target);
+      if (!this.error.size) this.sendBtn.disabled = false;
     } else {
       this.showError(target);
       this.error.add(target);
-      this.sendBtn.disabled = true;
+      if (this.error.size) this.sendBtn.disabled = true;
     }
   }
 
   showError(elem) {
     elem.classList.remove('success');
     elem.classList.add('error');
-    if (elem.nextElementSibling && !elem.nextElementSibling.classList.contains('validator-error')) {
-      return;
-    }
-    // const errorDiv = document.createElement('div');
-    // errorDiv.textContent = 'Ошибка в этом поле';
-    // errorDiv.classList.add('validator-error');
-    // elem.before(errorDiv);
   }
 
   showSuccess(elem) {
     elem.classList.remove('error');
     elem.classList.add('success');
-    if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
-      elem.nextElementSibling.remove();
-    }
   }
 
   applyStyle() {
@@ -88,10 +81,6 @@ class Validator {
       input.error {
         border: 2px solid red !important;
       }
-      // .validator-error {
-      //   font-size: 14px !important;
-      //   color: red !important;
-      // }
     `;
     document.head.appendChild(style);
   }
@@ -106,3 +95,59 @@ class Validator {
   }
 }
 
+(new Validator({
+  selector: '#form1',
+  pattern: {},
+  method: {
+    'tel': [
+      ['notEmpty'],
+      ['pattern', 'phone'],
+    ],
+    'email': [
+      ['notEmpty'],
+      ['pattern', 'email'],
+    ],
+    'text': [
+      ['notEmpty'],
+      ['pattern', 'text'],
+    ]
+  },
+})).init();
+
+(new Validator({
+  selector: '#form2',
+  pattern: {},
+  method: {
+    'tel': [
+      ['notEmpty'],
+      ['pattern', 'phone'],
+    ],
+    'email': [
+      ['notEmpty'],
+      ['pattern', 'email'],
+    ],
+    'text': [
+      ['notEmpty'],
+      ['pattern', 'text'],
+    ]
+  },
+})).init();
+
+(new Validator({
+  selector: '#form3',
+  pattern: {},
+  method: {
+    'tel': [
+      ['notEmpty'],
+      ['pattern', 'phone'],
+    ],
+    'email': [
+      ['notEmpty'],
+      ['pattern', 'email'],
+    ],
+    'text': [
+      ['notEmpty'],
+      ['pattern', 'text'],
+    ]
+  },
+})).init();

@@ -1,13 +1,14 @@
 'use strict';
-// import 'nodelist-foreach-polyfill';
-// import '@babel/polyfill';
-// import elementClosest from 'element-closest';
-// elementClosest(window);
-// import 'formdata-polyfill';
-// import 'es6-promise/auto';
-// import 'fetch-polyfill';
-// import smoothscroll from 'smoothscroll-polyfill';
-// smoothscroll.polyfill();
+import 'nodelist-foreach-polyfill';
+import '@babel/polyfill';
+import elementClosest from 'element-closest';
+elementClosest(window);
+import 'formdata-polyfill';
+import 'es6-promise/auto';
+import 'fetch-polyfill';
+import smoothscroll from 'smoothscroll-polyfill';
+smoothscroll.polyfill();
+import 'element-matches-polyfill';
 
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
@@ -16,7 +17,7 @@ import tabs from './modules/tabs';
 import slider from './modules/slider';
 import changeImgs from './modules/changeImgs';
 import calc from './modules/calc';
-import sendForm from './modules/sendForm';
+import sendForms from './modules/sendForms';
 import forbidInput from './modules/forbidInput';
 import smoothScroll from './modules/smoothScroll';
 
@@ -36,9 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // калькулятор
   calc();
   // отправить формы
-  sendForm('#form1');
-  sendForm('#form2');
-  sendForm('#form3');
+  sendForms();
   // запрет на ввод
   forbidInput(
     [/[^\d|+]/ig, /[A-Z\d]/ig],
@@ -46,4 +45,5 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   // плавная прокрутка
   smoothScroll('a[href="#service-block"]', 'service-block');
+	
 });

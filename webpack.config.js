@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    main: './src/index.js'
+    main: './src/index.js',
+    validator: './plugins/validator/validator.js',
   },
   output: {
     path: path.resolve(__dirname, './dist'),

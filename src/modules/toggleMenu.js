@@ -24,11 +24,10 @@ const toggleMenu = () => {
     e.preventDefault();
     let target = e.target;
     target = target.closest('.menu') || target;
-    console.log('target: ', target);
 
     if (target.matches('.close-btn') || target.matches('.menu')) {
       menu.classList.toggle('active-menu');
-    } else if(target.matches('a')) {
+    } else if(target.matches('menu a')) {
       document.querySelector(target.hash).scrollIntoView();
       menu.classList.remove('active-menu');
     } else target = target.closest('menu');
