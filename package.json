@@ -2,17 +2,13 @@
   "name": "lessons",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "watch": "webpack --watch",
-    "dev": "webpack-dev-server --open --mode=development",
-    "build": "webpack --mode=production"
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Eugene-boop/lessons.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -20,23 +16,7 @@
   },
   "homepage": "https://github.com/Eugene-boop/lessons#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "babel-loader": "^8.0.6",
-    "path": "^0.12.7",
     "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.8.7",
-    "element-closest": "^3.0.2",
-    "element-matches-polyfill": "^1.0.0",
-    "es6-promise": "^4.2.8",
-    "fetch-polyfill": "^0.8.2",
-    "formdata-polyfill": "^3.0.19",
-    "nodelist-foreach-polyfill": "^1.2.0",
-    "smoothscroll-polyfill": "^0.4.4",
-    "symbol-es6": "^0.1.2"
+    "webpack-cli": "^3.3.11"
   }
 }
