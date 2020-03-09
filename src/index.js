@@ -22,7 +22,7 @@ import forbidInput from './modules/forbidInput';
 import smoothScroll from './modules/smoothScroll';
 
 document.addEventListener('DOMContentLoaded', () => {
-  //  таймер
+  // таймер
   countTimer('March 11, 2020 15:00:00');
   // Меню
   toggleMenu();
