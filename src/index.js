@@ -23,7 +23,7 @@ import smoothScroll from './modules/smoothScroll';
 
 document.addEventListener('DOMContentLoaded', () => {
   //  таймер
-  countTimer('March 7, 2020 15:00:00');
+  countTimer('March 11, 2020 15:00:00');
   // Меню
   toggleMenu();
   // popup
